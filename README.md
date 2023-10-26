@@ -160,33 +160,35 @@ Encourage users to leave reviews and ratings for their ride-sharing partners to 
 
 
 
-
-Every day, thousands of people face the daunting task of finding an auto-rickshaw for their daily commute, whether it's to work, college, or commonly visited places. 
-
-Their have been many more apps created for this pain point like ola uber  rapido etc
-
-But AutoMate offers a lifeline. AutoMate eliminates this problem  by seamlessly connecting users heading to the same destination, making life easier for everyone.
-
-our app AutoMate, fosters sustainability , eliminates long waits, and redefines daily commutes. 
-
-AutoMate is about connecting people, cutting costs, and making each journey a memorable part of your day. 
-
-hand over to soumya for the demo
+### UI
 
 
 
-
-### Future Scope:
-
-#### Advanced Filtering :
-
-currenlty doesnt not account for prefrences
-
-Implement advanced filtering options that allow users to refine their matched ride-sharing partners based on their preferences like filtering by age, gender, ratings, and even shared interests or commuting habits
+![Screenshot 1](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/dafd6b64-6bcb-4d27-93e3-9b127ff59621)
 
 
-#### In-App Chat and Communication:
-to chat with their matched mate before accepting
+![Screenshot 2](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/3605534b-352c-450a-8551-5e4a9f7bd193)
 
-#### User Ratings and Reviews:
-so users can rate their mates
+
+![Screenshot 3](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/e016e900-f310-4ea3-9ce7-efa62970d609)
+
+
+![Screenshot 4](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/e3bed0b5-5ace-4cef-9281-cdf92f648ba2)
+
+
+![Screenshot 5](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/c5ff8a4d-a46c-4659-a5e6-f39d4f6bdbc3)
+
+
+
+![Screenshot 6](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/d56513d5-d408-4f80-b574-2108cee27462)
+
+
+![Screenshot 7](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/914cfe7c-1824-4a48-b4f1-82a6af7948e5)
+
+
+![Screenshot 8](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/c33f076e-d36a-400a-9e94-c8e0f5bb0f31)
+
+
+
+![Screenshot 9](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/cedd069c-a1ff-4395-9a2e-8d139569d76f)
+
