@@ -7,10 +7,6 @@ Every day, thousands of people face the daunting task of finding an auto-ricksha
 
 With AutoMate, you no longer have to embark on that auto ride alone. This innovative solution fosters community, eliminates long waits, and redefines daily commutes. AutoMate is about connecting people, cutting costs, and making each journey a memorable part of your day. 
 
-#### Team Leader Email - uday.patil92@gmail.com
-
-
-#### Demo video - https://drive.google.com/file/d/1Y0rFSYnguA16Q0G7WcIbC-XvOBAJ5Hhn/view?usp=sharing
 
 ## A Brief of the Prototype:
 
