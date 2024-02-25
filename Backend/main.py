@@ -11,7 +11,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///automate.db"
 app.config["JWT_SECRET_KEY"] = "SKBw2u4x246vBnTxBcGrwpUNjbvXZm"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1500)
 
-
+# Live Link - https://udayp.live
 db = SQLAlchemy(app)
 
 

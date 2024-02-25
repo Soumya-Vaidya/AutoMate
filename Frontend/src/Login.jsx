@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom'
 import axios from "axios"
 
+import Alert from 'react-bootstrap/Alert';
+
+const backend_api = import.meta.env.VITE_BACKEND_API
+
 export default function Login() {
     const navigate = useNavigate();
 
@@ -19,18 +23,33 @@ export default function Login() {
         event.preventDefault();
 
         try {
-            const response = await axios.post("http://127.0.0.1:5000/login", formData);
+            const response = await axios.post(`${backend_api}/login`, formData);
 
-            console.log('Response:', response.data.access_token);
+            // console.log('Response:', response.data.access_token);
             localStorage.setItem('user', response.data.access_token)
             setError(false)
             navigate("/");
         } catch (error) {
-            console.log(error.response)
-            setError(true)
-            setErrorMsg(error.response.data.msg)
             setUser({});
             localStorage.clear();
+
+            setError(true)
+            if (error.message && !error.response) {
+                setErrorMsg(error.message)
+            }
+            else if (error.response.status == 401) {
+
+                setErrorMsg(error.response.data.msg)
+            }
+            else {
+
+
+                setErrorMsg("Something went wrong")
+
+            }
+
+
+
         }
     }
 
@@ -42,7 +61,7 @@ export default function Login() {
     }, [user]);
 
     function handleInputChange(event) {
-        console.log(formData);
+        // console.log(formData);
         const { name, value } = event.target;
         setFormData({
             ...formData,
@@ -97,8 +116,16 @@ export default function Login() {
                                                         onChange={handleInputChange}
                                                     />
                                                 </div>
+
+
                                                 <div className="pt-1 mb-4">
                                                     <button className="btn btn-dark btn-lg" type="submit" form="myform" style={{ backgroundColor: '#296E73' }}>Login</button>
+                                                    {error ? <Alert variant="danger" className="m-2">
+                                                        {errorMsg}
+                                                    </Alert> : null}
+
+
+
                                                     <p className="mt-2 " style={{ color: '#393f81' }}>Do not have an account?
                                                         <Link to="/" style={{ color: '#393f81' }}>
 
@@ -119,3 +146,6 @@ export default function Login() {
         </>
     )
 }
+
+
+

@@ -4,6 +4,8 @@ import { Autocomplete } from '@react-google-maps/api';
 import axios from 'axios';
 import UserModal from './components/UserModal';
 
+const backend_api = import.meta.env.VITE_BACKEND_API
+
 function MyMapWithAutocomplete(props) {
     const autocompleteRef = useRef(null);
     const [open, setopen] = useState(false)
@@ -11,15 +13,15 @@ function MyMapWithAutocomplete(props) {
 
 
     const onLoad = (autocomplete) => {
-        console.log('autocomplete: ', autocomplete);
+        // console.log('autocomplete: ', autocomplete);
         autocompleteRef.current = autocomplete;
     }
 
     const onPlaceChanged = async () => {
         if (autocompleteRef.current !== null) {
             try {
-                const response = await axios.post("http://127.0.0.1:5000/destination", autocompleteRef.current.getPlace());
-                console.log('Response:', response.data);
+                const response = await axios.post(`${backend_api}/destination`, autocompleteRef.current.getPlace());
+                // console.log('Response:', response.data);
                 setDestination(response.data)
                 setopen(true)
                 // navigate("/");
@@ -27,7 +29,7 @@ function MyMapWithAutocomplete(props) {
                 console.error('Error:', error);
             }
         } else {
-            console.log('Autocomplete is not loaded yet!');
+            // console.log('Autocomplete is not loaded yet!');
         }
     }
 

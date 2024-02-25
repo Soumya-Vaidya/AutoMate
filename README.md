@@ -8,6 +8,16 @@ Every day, thousands of people face the daunting task of finding an auto-ricksha
 With AutoMate, you no longer have to embark on that auto ride alone. This innovative solution fosters community, eliminates long waits, and redefines daily commutes. AutoMate is about connecting people, cutting costs, and making each journey a memorable part of your day. 
 
 
+## Live Link - https://udayp.live/
+
+
+#### Team Leader Email - uday.patil92@gmail.com
+
+
+
+
+#### Demo video - https://drive.google.com/file/d/1Y0rFSYnguA16Q0G7WcIbC-XvOBAJ5Hhn/view?usp=sharing
+
 ## A Brief of the Prototype:
 
 
@@ -159,9 +169,7 @@ Provide a secure in-app chat or messaging feature to facilitate communication be
 Encourage users to leave reviews and ratings for their ride-sharing partners to build trust and enhance the community. Implement a fair and transparent rating system.
 
 
-
 ### UI
-
 
 
 ![Screenshot 1](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/dafd6b64-6bcb-4d27-93e3-9b127ff59621)
@@ -179,7 +187,6 @@ Encourage users to leave reviews and ratings for their ride-sharing partners to 
 ![Screenshot 5](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/c5ff8a4d-a46c-4659-a5e6-f39d4f6bdbc3)
 
 
-
 ![Screenshot 6](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/d56513d5-d408-4f80-b574-2108cee27462)
 
 
@@ -189,6 +196,7 @@ Encourage users to leave reviews and ratings for their ride-sharing partners to 
 ![Screenshot 8](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/c33f076e-d36a-400a-9e94-c8e0f5bb0f31)
 
 
-
 ![Screenshot 9](https://github.com/Soumya-Vaidya/AutoMate/assets/92262469/cedd069c-a1ff-4395-9a2e-8d139569d76f)
+
+
 

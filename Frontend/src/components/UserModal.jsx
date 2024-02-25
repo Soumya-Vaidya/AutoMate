@@ -5,6 +5,10 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
+
+const backend_api = import.meta.env.VITE_BACKEND_API
+
+
 function UserModal(props) {
     // const [userData, setUserData] = useState(null);
     const [show, setShow] = useState(true);
@@ -17,7 +21,7 @@ function UserModal(props) {
 
     const token = localStorage.getItem("user");
     const navigate = useNavigate();
-    console.log('from user modal', props.userLocation);
+    // console.log('from user modal', props.userLocation);
     const search = async () => {
         try {
 
@@ -27,7 +31,7 @@ function UserModal(props) {
             };
 
 
-            const response = await axios.post('http://127.0.0.1:5000/search', postData, {
+            const response = await axios.post(`${backend_api}/search`, postData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
 
@@ -38,7 +42,7 @@ function UserModal(props) {
                 const data = response.data;
                 // setUserData(data);
                 // Move the console.log here to see the updated value of userData.
-                console.log(data);
+                // console.log(data);
                 // setSearching(false);
 
             } else {
@@ -51,34 +55,65 @@ function UserModal(props) {
 
 
     }
+    // console.log(routeLink);
 
     const [userData, setUserData] = useState(null);
-    console.log(routeLink);
+    const [matchedData, setMatchedData] = useState(null);
+    const [matches, setMatches] = useState(null);
 
 
-    const getUserData = async () => {
+    const getCurrentUserData = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5000/id', {
+            const response = await axios.get(`${backend_api}/id`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-            }
-            );
+            });
+
             if (response.status === 200) {
                 const data = response.data;
-                // console.log(data);
                 setUserData(data);
-                console.log(userData)
+                // console.log("current user data", userData)
             }
         } catch (error) {
             console.error('Error fetching user details:', error);
         }
     };
 
-    const openGoogle = () => {
-        window.open(routeLink, '_blank');
+
+    const getMatchedUserData = async (currentUserData, matchedUsers) => {
+        // console.log(currentUserData);
+        for (const i in matchedUsers) {
+            const user = matchedUsers[i];
+            if (user.user_id === currentUserData.id) {
+                // console.log("hello", user.user_id, user.matched_id)
+                try {
+                    const response = await axios.get(`${backend_api}/id/${user.matched_id}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (response.status === 200) {
+                        const data = response.data;
+                        // console.log("In matched user", data);
+                        setMatchedData(data);
+                    }
+                } catch (error) {
+                    console.error('Error fetching matched user details:', error);
+                }
+            }
+        }
     };
+
+    useEffect(() => {
+        if (userData) {
+            // console.log('usrData', userData);
+            getMatchedUserData(userData, matches);
+        }
+    }, [userData]);
 
 
     let searchInterval;
@@ -89,10 +124,12 @@ function UserModal(props) {
 
         searchInterval = setInterval(async () => {
 
+            // console.log('matching')
+
             try {
 
 
-                const response = await axios.get('http://127.0.0.1:5000/match', {
+                const response = await axios.get(`${backend_api}/match`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -101,12 +138,13 @@ function UserModal(props) {
 
                 if (response.status === 200) {
                     const data = response.data;
-                    // setUserData(data);
-                    // Move the console.log here to see the updated value of userData.
-                    console.log(data);
+                    // console.log("requesting user data");
+                    setMatches(data);
+                    getCurrentUserData(); // Get the current user's data.
                     setSearching(false);
-                    getUserData();
+
                     clearInterval(searchInterval); // Stop polling when status is 200.
+
                 } else {
                     console.error('Unexpected status code:', response.status);
                 }
@@ -116,9 +154,9 @@ function UserModal(props) {
 
             // Track the time when the polling started.
             const currentTime = new Date().getTime();
-            console.log("time", currentTime - startTime)
+            // console.log("time", currentTime - startTime)
             // Check if 2 minutes have passed (120,000 milliseconds).
-            if (currentTime - startTime >= 12000) {
+            if (currentTime - startTime >= 300000) {
                 clearInterval(searchInterval); // Clear the interval after 2 minutes.
             }
         }, 4000); // Poll every 4 seconds.
@@ -129,13 +167,15 @@ function UserModal(props) {
         return () => clearInterval(searchInterval);
     };
 
-
+    const openGoogle = () => {
+        window.open(routeLink, '_blank');
+    };
 
 
 
     const handleAccept = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5000/accepted', {
+            const response = await axios.get(`${backend_api}/accepted`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -145,8 +185,6 @@ function UserModal(props) {
             );
             if (response.status === 200) {
                 const data = response.data;
-                console.log(data);
-
                 // alert('accepted');
                 setAccepted(true);
             }
@@ -159,7 +197,7 @@ function UserModal(props) {
     const handleClose = async () => {
 
         try {
-            const response = await axios.get('http://127.0.0.1:5000/reject', {
+            const response = await axios.get(`${backend_api}/reject`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -169,8 +207,6 @@ function UserModal(props) {
             );
             if (response.status === 200) {
                 const data = response.data;
-                console.log(data);
-
                 setSearching(true);
                 setAccepted(false);
                 setShow(false)
@@ -188,20 +224,20 @@ function UserModal(props) {
         setShow(false);
         navigate('/');
         clearInterval(searchInterval);
-        console.log("closed modal");
+        // console.log("closed modal");
         props.setopen(false);
     }
 
     const handleGenerate = async () => {
-        console.log('generating');
+        // console.log('generating link');
         try {
             const postData = {
                 waypoint: props.userLocation,
                 destination: props.destination
             };
 
-            console.log('post', postData);
-            const response = await axios.post('http://127.0.0.1:5000/route', postData, {
+            // console.log('post link', postData);
+            const response = await axios.post(`${backend_api}/route`, postData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -211,7 +247,7 @@ function UserModal(props) {
             if (response.status === 200) {
                 setRoutelink(response.data)
                 // alert(response.data)
-                console.log(response.data)
+                // console.log(response.data)
             }
         }
         catch (error) {
@@ -229,7 +265,7 @@ function UserModal(props) {
             try {
 
 
-                const response = await axios.get('http://127.0.0.1:5000/consent', {
+                const response = await axios.get(`${backend_api}/consent`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -243,7 +279,7 @@ function UserModal(props) {
                     clearInterval(pollConsentId);
                     const data = response.data;
 
-                    console.log(data);
+                    // console.log(data);
                     setSearching(false);
 
                 } else {
@@ -257,7 +293,7 @@ function UserModal(props) {
             const currentTime = new Date().getTime();
 
             // Check if 2 minutes have passed (120,000 milliseconds).
-            if (currentTime - startTime >= 120000) {
+            if (currentTime - startTime >= 300000) {
                 clearInterval(pollConsentId); // Clear the interval after 2 minutes.
             }
         }, 4000); // Poll every 4 seconds.
@@ -270,7 +306,7 @@ function UserModal(props) {
 
     useEffect(() => {
         if (consent) {
-            console.log('generating');
+            // console.log('generating link in use effect');
             handleGenerate();
         }
     }, [consent]);
@@ -307,9 +343,9 @@ function UserModal(props) {
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <p>Username: {userData ? userData.username : 'Loading...'}</p>
-                            <p>Age: {userData ? userData.age : 'Loading...'}</p>
-                            <p>Gender: {userData ? userData.gender : 'Loading...'}</p>
+                            <p>Username: {matchedData ? matchedData.username : 'Loading...'}</p>
+                            <p>Age: {matchedData ? matchedData.age : 'Loading...'}</p>
+                            <p>Gender: {matchedData ? matchedData.gender : 'Loading...'}</p>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="danger" style={{ backgroundColor: '#FF7077' }} onClick={handleClose}>
@@ -331,12 +367,12 @@ function UserModal(props) {
                             Waiting for the user to accept
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body style={{ minHeight: '150px', minWidth: '500px' }}>
+                    <Modal.Body style={{ minHeight: '150px', minWidth: '520px' }}>
                         <div className='row'>
                             <div className='col-6'>
-                                <p>Username: {userData ? userData.username : 'Loading...'}</p>
-                                <p>Age: {userData ? userData.age : 'Loading...'}</p>
-                                <p>Gender: {userData ? userData.gender : 'Loading...'}</p>
+                                <p>Username: {matchedData ? matchedData.username : 'Loading...'}</p>
+                                <p>Age: {matchedData ? matchedData.age : 'Loading...'}</p>
+                                <p>Gender: {matchedData ? matchedData.gender : 'Loading...'}</p>
                             </div>
                             <div className='col-6'>
                                 <img src="/auto.svg" alt="Your Icon" style={{

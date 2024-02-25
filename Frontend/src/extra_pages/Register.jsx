@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+const backend_api = import.meta.env.VITE_BACKEND_API
+
 function Register() {
     const [formData, setFormData] = useState({
         username: '',
@@ -20,7 +22,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://127.0.0.1:5000/register", formData);
+            const response = await axios.post(`${backend_api}/register`, formData);
 
             console.log('Response:', response.data);
             history.push('/');

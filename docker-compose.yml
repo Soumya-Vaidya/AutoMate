@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  flask-api:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile-flask
+    image: automate
+    ports:
+      - "5000:5000"
+    environment:
+      - VIRTUAL_HOST=api.automate.udayp.live
+      - VIRTUAL_PORT=5000
+      - LETSENCRYPT_HOST=api.automate.udayp.live
+    network_mode: bridge
+    env_file:
+      - .env
+
+
+  react-frontend:
+    image: react-build
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile-react
+    environment:
+      - VIRTUAL_HOST=automate.udayp.live
+      - LETSENCRYPT_HOST=automate.udayp.live
+    network_mode: bridge
+    env_file:
+      - .env

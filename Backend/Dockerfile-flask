@@ -1,0 +1,26 @@
+FROM python:3
+
+
+# Set the working directory
+WORKDIR /automate
+
+
+
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+# Copy the application files
+COPY . .
+
+# Expose the port for Flask
+EXPOSE 5000
+
+# Start Redis and run the Flask application using Gunicorn
+CMD ["sh", "-c", "gunicorn -b 0.0.0.0:5000 main:app"]
+
+
+
+

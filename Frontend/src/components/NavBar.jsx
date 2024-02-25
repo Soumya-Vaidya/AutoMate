@@ -9,7 +9,7 @@ function NavBar(props) {
     const navigate = useNavigate();
 
     const logout = () => {
-        console.log('clicked logout');
+        // console.log('clicked logout');
         localStorage.clear();
         props.setUser(null)
         navigate("/");
