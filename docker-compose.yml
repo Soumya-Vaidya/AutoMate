@@ -9,13 +9,12 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - VIRTUAL_HOST=api.automate.udayp.live
+      - VIRTUAL_HOST=api.automate.soumyavaidya.me
       - VIRTUAL_PORT=5000
-      - LETSENCRYPT_HOST=api.automate.udayp.live
+      - LETSENCRYPT_HOST=api.automate.soumyavaidya.me
     network_mode: bridge
     env_file:
       - .env
-
 
   react-frontend:
     image: react-build
@@ -23,8 +22,8 @@ services:
       context: ./Frontend
       dockerfile: Dockerfile-react
     environment:
-      - VIRTUAL_HOST=automate.udayp.live
-      - LETSENCRYPT_HOST=automate.udayp.live
+      - VIRTUAL_HOST=automate.soumyavaidya.me
+      - LETSENCRYPT_HOST=automate.soumyavaidya.me
     network_mode: bridge
     env_file:
       - .env
